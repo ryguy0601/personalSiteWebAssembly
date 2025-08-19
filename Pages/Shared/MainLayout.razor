@@ -1,0 +1,116 @@
+﻿@inherits LayoutComponentBase
+@using personalSiteWebAssembly.Helpers
+@inject NavigationManager NavManager
+@inject WebPages WebPagesService
+
+<PageTitle>Quick Scripts</PageTitle>
+@*<HeadContent>
+    <link rel="stylesheet" href="css/site.css" />
+</HeadContent>*@
+
+<div class="d-flex flex-column min-vh-100">
+
+    <!-- Toggle for mobile -->
+    <button id="nav-toggle" class="btn btn-outline-light glass-panel" type="button">
+        ☰ Menu
+    </button>
+
+    <!-- Sidebar -->
+    <div id="sidebar" class="d-flex flex-column p-3 glass-panel">
+        <NavLink href="/" class="nav-link text-white" Match="NavLinkMatch.All">
+            <h4>Home</h4>
+        </NavLink>
+
+        <ul class="nav nav-pills flex-column">
+
+            <!-- About Me -->
+            <li class="nav-item dropdown-flyout position-relative">
+                <a class="nav-link text-white d-flex justify-content-between align-items-center" href="/aboutme">
+                    About Me
+                    <span class="ms-2"><i class="bi bi-caret-right-fill"></i></span>
+                </a>
+                <ul class="submenu position-absolute list-unstyled glass-panel">
+                    @foreach (var about in Pages.Where(p => p.Type == "AboutMe"))
+                    {
+                        <li>
+                            <NavLink href="@about.Path" class="nav-link text-white"
+                                     title="@about.Description">@about.Title</NavLink>
+                                </li>
+                            }
+                </ul>
+            </li>
+
+            <!-- Games -->
+            <li class="nav-item dropdown-flyout position-relative">
+                <a class="nav-link text-white d-flex justify-content-between align-items-center" href="/games">
+                    Games
+                    <span class="ms-2"><i class="bi bi-caret-right-fill"></i></span>
+                </a>
+                <ul class="submenu position-absolute list-unstyled glass-panel">
+                    @foreach (var game in Pages.Where(p => p.Type == "Game"))
+                    {
+                        <li>
+                            <NavLink href="@game.Path" class="nav-link text-white"
+                                     title="@game.Description">@game.Title</NavLink>
+                                </li>
+                            }
+                </ul>
+            </li>
+
+            <!-- Projects -->
+            <li class="nav-item dropdown-flyout position-relative">
+                <a class="nav-link text-white d-flex justify-content-between align-items-center" href="/projects">
+                    Projects
+                    <span class="ms-2"><i class="bi bi-caret-right-fill"></i></span>
+                </a>
+                <ul class="submenu position-absolute list-unstyled glass-panel">
+                    @foreach (var proj in Pages.Where(p => p.Type == "Project"))
+                    {
+                        <li>
+                            <NavLink href="@proj.Path" class="nav-link text-white"
+                                     title="@proj.Description">@proj.Title</NavLink>
+                                </li>
+                            }
+                </ul>
+            </li>
+        </ul>
+
+        <!-- Mobile close -->
+        <button type="button" id="sideNavClose" class="btn-close btn-close-white mt-3 d-sm-none"
+                aria-label="Close"></button>
+    </div>
+
+    <!-- GitHub logo -->
+    <div class="githubLogo">
+        <a href="@GithubUrl" target="_blank">
+            <img src="img/github-brands-solid-full.svg" alt="link to Github" />
+        </a>
+    </div>
+
+    <!-- Main content -->
+    <main class="pt-4 mt-4 flex-fill" id="main-content">
+        @Body
+    </main>
+
+
+</div>
+
+@code {
+    private IEnumerable<PageInfo> Pages = Enumerable.Empty<PageInfo>();
+    private string GithubUrl = "https://github.com/ryguy0601";
+
+    protected override void OnInitialized()
+    {
+        // Use injected service
+        Pages = WebPagesService.GetPages();
+
+        var currentPath = "https://localhost:44354/" + NavManager.ToBaseRelativePath(NavManager.Uri);
+        var pageInfo = Pages.FirstOrDefault(p =>
+            !string.IsNullOrWhiteSpace(p.Path) && currentPath.Contains(p.Path, StringComparison.OrdinalIgnoreCase));
+
+        if (pageInfo is not null && !string.IsNullOrWhiteSpace(pageInfo.GithubUrl))
+        {
+            GithubUrl = pageInfo.GithubUrl;
+        }
+    }
+}

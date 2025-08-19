@@ -1,0 +1,235 @@
+﻿@page "/AboutMe/Resume"
+
+<PageTitle>Resume</PageTitle>
+
+<style>
+    /* You can move this to Resume.razor.css (recommended) */
+    .text-gradient {
+        background: linear-gradient(90deg, #ff4fa3, #ff00ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .resume { color: #e6e6e6; }
+    .section-title {
+        border-left: 4px solid #ff4fa3;
+        padding-left: 0.6rem;
+        margin-bottom: 1.5rem;
+        font-weight: 600;
+        color: #fff;
+    }
+    .skill-card {
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        background: rgba(255,255,255,0.05);
+    }
+    .skill-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 20px rgba(0,0,0,1);
+    }
+    a { text-decoration: none; }
+</style>
+
+<section class="resume container py-5">
+    <header class="mb-5 text-center">
+        <h1 class="display-4 fw-bold text-gradient">@Name</h1>
+        <p class="lead mb-3">
+            <a class="link-light" href="mailto:@Email">@Email</a>
+            <span class="mx-2">•</span>
+            <a class="link-light" href="tel:@PhoneRaw">@Phone</a>
+            <span class="mx-2">•</span>
+            <span>@Location</span>
+        </p>
+        <p>
+            <a class="btn btn-outline-light btn-sm me-2" href="@LinkedInUrl" target="_blank" rel="noopener">
+                <i class="bi bi-linkedin"></i> LinkedIn
+            </a>
+            <a class="btn btn-outline-light btn-sm" href="@GithubUrl" target="_blank" rel="noopener">
+                <i class="bi bi-github"></i> GitHub
+            </a>
+        </p>
+    </header>
+
+    <section class="mb-5">
+        <h2 class="section-title">Summary</h2>
+        <p class="fs-5">@Summary</p>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title">Skills</h2>
+        <div class="row g-4">
+            @foreach (var group in SkillGroups)
+            {
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-lg skill-card h-100">
+                        <div class="card-body">
+                            <h3 class="h6 text-uppercase text-gradient fw-bold">@group.Title</h3>
+                            <ul class="list-unstyled mb-0">
+                                @foreach (var item in group.Items)
+                                {
+                                    <li>• @item</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title">Work Experience</h2>
+        @foreach (var job in WorkExperience)
+        {
+            <article class="mb-5 p-4 rounded shadow-sm bg-dark bg-opacity-25">
+                <div class="d-flex flex-wrap align-items-baseline justify-content-between">
+                    <h3 class="h5 fw-bold">@job.Title</h3>
+                    <span class="text-gradient">@job.DateRange</span>
+                </div>
+                <div class="d-flex flex-wrap align-items-baseline justify-content-between">
+                    <span>@job.Company</span>
+                    @* <span class="text-gradient">@job.Location</span> *@
+                </div>
+                <div class="mb-2">@job.Company</div>
+                <ul class="ps-3">
+                    @foreach (var bullet in job.Bullets)
+                    {
+                        <li class="mb-1"><i class="bi bi-caret-right-fill text-gradient me-1"></i>@bullet</li>
+                    }
+                </ul>
+            </article>
+        }
+    </section>
+
+    <section class="mb-5">
+        <h2 class="section-title">Education</h2>
+        @foreach (var learn in Education)
+        {
+            <article class="mb-5 p-4 rounded shadow-sm bg-dark bg-opacity-25">
+                <div class="d-flex flex-wrap align-items-baseline justify-content-between">
+                    <h3 class="h5 fw-bold">@learn.School</h3>
+                    <span class="text-gradient">@learn.DateRange</span>
+                </div>
+                <div class="d-flex flex-wrap align-items-baseline justify-content-between">
+                    <span>@learn.DegreeAndMajor</span>
+                    <span class="text-gradient">@learn.Location</span>
+                </div>
+                @if (learn.Courses is not null && learn.Courses.Count > 0)
+                {
+                    <ul class="p-3">
+                        @foreach (var bullet in learn.Courses)
+                        {
+                            <li class="mb-1"><i class="bi bi-caret-right-fill text-gradient me-1"></i>@bullet</li>
+                        }
+                    </ul>
+                }
+            </article>
+        }
+    </section>
+</section>
+
+@code {
+    // Top-level props that replaced Model.*
+    private string Name { get; set; } = "Ryan Cuccurullo";
+    private string Email { get; set; } = "ryan.cuccu@gmail.com";
+    private string Phone { get; set; } = "(631) 933 2374";
+    private string PhoneRaw => "+16319332374";
+    private string Location { get; set; } = "Ronkonkoma, NY";
+    private string LinkedInUrl { get; set; } = "https://www.linkedin.com/in/ryan-cuccurullo-48b242261";
+    private string GithubUrl { get; set; } = "https://github.com/ryguy0601";
+
+    private string Summary { get; set; } =
+        "Detail-oriented Computer Programming student with hands-on experience in web development, automation scripting, and accessibility optimization. Skilled in designing efficient solutions, enhancing user experience, and collaborating across teams to deliver impactful projects. Seeking opportunities to apply technical expertise in dynamic, growth-oriented environments.";
+
+    private List<SkillGroup> SkillGroups { get; set; } = new()
+    {
+        new SkillGroup("Languages / Frameworks", new List<string>
+        {
+            "Java", "Python", "JavaScript", "SQL", "HTML", "CSS", "C#/.NET", "Bootstrap"
+        }),
+        new SkillGroup("Tools & Technologies", new List<string>
+        {
+            "IntelliJ IDEA", "Visual Studio", "Azure DevOps", "ServiceNow", "OneTrust",
+            "Rapid7", "Bitsight", "Level Access", "Excel", "Access"
+        }),
+        new SkillGroup("Concepts", new List<string>
+        {
+            "OOP", "GUI Development", "Web Accessibility", "Problem Solving",
+            "Data Structures", "Networking", "Unix/Linux", "Windows"
+        })
+    };
+
+    private List<Job> WorkExperience { get; set; } = new()
+    {
+        new Job
+        {
+            Title = "Web Development Intern",
+            Company = "American Regent",
+            DateRange = "May 2025 – August 2025",
+            Location = "Shirley, NY",
+            Bullets = new List<string>
+            {
+                "Improved the Careers website’s accessibility by addressing 70+ issues identified through Level Access, achieving a 100% Google Lighthouse accessibility score.",
+                "Implemented user consent banners on 7 company websites to ensure compliance with privacy regulations (e.g., adequan.com).",
+                "Revamped the company intranet with content updates and UI adjustments from ServiceNow tickets, improving engagement for 200+ employees.",
+                "Built a Python automation script to convert entire websites into PDF documents for FDA submission, streamlining compliance.",
+                "Developed an in-house bulk image converter/compressor to reduce image sizes and improve site performance.",
+                "Collaborated across teams using Azure DevOps and third-party tools (Bitsight, Rapid7, OneTrust, ServiceNow)."
+            }
+        }
+    };
+
+    private List<EducationItem> Education { get; set; } = new()
+    {
+        new EducationItem
+        {
+            School = "Farmingdale State College",
+            DegreeAndMajor = "B.S. – Computer Programming and Information Systems",
+            Location = "Farmingdale, NY",
+            DateRange = "Aug 2023 – May 2027",
+            Courses = new List<string>
+            {
+                "Intro to Programming (Python)",
+                "Computer Society and Technology (Excel/Access)",
+                "Computer Programming (Java)",
+                "UNIX Operating Systems",
+                "Data Structures & Algorithms I",
+                "Introduction to Database Systems (SQL)",
+                "Introduction to Networks (Cisco)",
+                "Web Database Development (SQL/PHP)",
+                "Software Engineering (JavaFX collaborative app)"
+            }
+        }
+    };
+
+    private List<Reference> References { get; set; } = new()
+    {
+        new Reference { Name = "Marc Boyazi", Title = "IT Web Operations Manager", Email = "MBoyazi@americanregent.com" }
+    };
+
+    // Supporting models (kept local for simplicity; you can move to separate files)
+    private record SkillGroup(string Title, List<string> Items);
+
+    private class Job
+    {
+        public string Title { get; set; } = string.Empty;
+        public string Company { get; set; } = string.Empty;
+        public string DateRange { get; set; } = string.Empty;
+        public string Location { get; set; } = string.Empty;
+        public List<string> Bullets { get; set; } = new();
+    }
+
+    private class EducationItem
+    {
+        public string School { get; set; } = string.Empty;
+        public string DegreeAndMajor { get; set; } = string.Empty;
+        public string? Location { get; set; } = string.Empty;
+        public string DateRange { get; set; } = string.Empty;
+        public List<string>? Courses { get; set; }
+    }
+
+    private class Reference
+    {
+        public string Name { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
+        public string Email { get; set; } = string.Empty;
+    }
+}

@@ -1,0 +1,51 @@
+﻿@page "/"
+@layout personalSiteWebAssembly.Pages.Shared.MainLayout
+@using personalSiteWebAssembly.Helpers
+@inject IJSRuntime JS
+<HeadContent>
+    <link rel="stylesheet" href="css/index.css" />
+</HeadContent>
+
+
+<canvas id="matrix-canvas"></canvas>
+
+<div class="container position-relative" style="z-index:1;">
+    <h1 class="mb-4">Welcome to My Website</h1>
+
+    <div class="row g-4">
+        @foreach (var p in new WebPages().GetPages())
+        {
+            <div class="col-md-6 col-lg-4">
+                <NavLink class="text-decoration-none text-reset" href="@p.Path">
+                    <div class="card shadow-sm h-100 glass-panel">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title">@p.Title</h5>
+                            <p class="card-text flex-grow-1">
+                                @p.Description
+                            </p>
+                            <span class="btn btn-blue mt-auto">@p.BtnText</span>
+                        </div>
+                    </div>
+                </NavLink>
+            </div>
+        }
+    </div>
+</div>
+
+@* Scripts should go in wwwroot/index.html, but you *can* inline like this if needed *@
+
+
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            // Initialize VanillaTilt for cards
+            await JS.InvokeVoidAsync("initVanillaTilt");
+
+            // Initialize the matrix canvas
+            await JS.InvokeVoidAsync("navFuncs");
+            await JS.InvokeVoidAsync("initMatrix");
+        }
+    }
+}
