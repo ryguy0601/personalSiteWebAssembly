@@ -8,10 +8,30 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="css\**" />
+    <Compile Remove="img\**" />
+    <Compile Remove="js\**" />
+    <Compile Remove="lib\**" />
     <Compile Remove="NewFolder\**" />
+    <Compile Remove="_framework\**" />
+    <Content Remove="css\**" />
+    <Content Remove="img\**" />
+    <Content Remove="js\**" />
+    <Content Remove="lib\**" />
     <Content Remove="NewFolder\**" />
+    <Content Remove="_framework\**" />
+    <EmbeddedResource Remove="css\**" />
+    <EmbeddedResource Remove="img\**" />
+    <EmbeddedResource Remove="js\**" />
+    <EmbeddedResource Remove="lib\**" />
     <EmbeddedResource Remove="NewFolder\**" />
+    <EmbeddedResource Remove="_framework\**" />
+    <None Remove="css\**" />
+    <None Remove="img\**" />
+    <None Remove="js\**" />
+    <None Remove="lib\**" />
     <None Remove="NewFolder\**" />
+    <None Remove="_framework\**" />
   </ItemGroup>
 
   <ItemGroup>
