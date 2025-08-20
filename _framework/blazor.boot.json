@@ -1,7 +1,7 @@
 {
   "entryAssembly": "personalSiteWebAssembly",
   "resources": {
-    "hash": "sha256-6sVdalyHL3twtlNjMy0SsAEILlIuE2+kLkTljMdWLBM=",
+    "hash": "sha256-m6WQudQCaexTl8DSgAYaL4I3xcwFgbEq3/Ffxetq4Qc=",
     "runtime": {
       "dotnet.js": "sha256-eaJTmow4t8eE7FZMZR5Ja41JMOefGCbIYDTdpclGsac=",
       "dotnet.timezones.blat": "sha256-gbATD5HDsHYtW8vdPYh9iSBY4O5CjvMeCSF5xXWF1xo=",
@@ -39,7 +39,7 @@
       "System.Text.Encodings.Web.dll": "sha256-lFKuTdK7dtov2eQtRGzxU/SvD4yA7ybK4oD2lzMl77g=",
       "System.Text.Json.dll": "sha256-DE3tkWjcW3FVVOv/avneBBzt4LkEhIPWKm7FwU+jfrY=",
       "System.Private.CoreLib.dll": "sha256-OKawjQkh/IC/qS8kzubwH74Rw+IAYIxzQ1nus9cKckI=",
-      "personalSiteWebAssembly.dll": "sha256-RK1lO7ijE8MYSUjeG6qYpLbCTyLBM417d2kSasrZ1MA="
+      "personalSiteWebAssembly.dll": "sha256-8UCLw0yzADT/Y1tgjIFOYdNF6whCVIkeciU65ar/oIs="
     },
     "runtimeAssets": {
       "dotnet.wasm": {
