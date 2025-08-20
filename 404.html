@@ -8,12 +8,16 @@
   <body>
     <p>Redirecting to app...</p>
     <script>
-      // Save the intended path
-      var redirectTo = window.location.protocol + "//" + window.location.host + 
-                       window.location.pathname.replace(/\/+$/, "") + 
-                       window.location.search + window.location.hash;
-      sessionStorage.redirect = redirectTo;
-      window.location.href = "./index.html";
+        // Save the intended path (preserve full subpath)
+        var redirectTo = window.location.protocol + "//" + window.location.host +
+            window.location.pathname +
+            window.location.search +
+            window.location.hash;
+
+        sessionStorage.redirect = redirectTo;
+
+        // Always redirect to the SPA entry point
+        window.location.replace("/personalSiteWebAssembly/index.html");
     </script>
   </body>
 </html>
