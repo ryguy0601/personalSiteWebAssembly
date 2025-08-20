@@ -2,22 +2,27 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="refresh" content="0; url=./index.html" />
     <title>Redirecting...</title>
 </head>
 <body>
     <p>Redirecting to app...</p>
     <script>
-        // Save the intended path (preserve full subpath)
+        // Save the intended path (so SPA router can restore it)
         var redirectTo = window.location.protocol + "//" + window.location.host +
             window.location.pathname +
             window.location.search +
             window.location.hash;
-
         sessionStorage.redirect = redirectTo;
 
-        // Always redirect to the SPA entry point
-        window.location.replace("/personalSiteWebAssembly/index.html");
+        // Get the base repo path (e.g. "/personalSiteWebAssembly")
+        var pathParts = window.location.pathname.split("/");
+        var base = "";
+        if (pathParts.length > 1 && pathParts[1]) {
+            base = "/" + pathParts[1]; // repo name (first folder after domain)
+        }
+
+        // Redirect to index.html inside that base
+        window.location.replace(base + "/index.html");
     </script>
 </body>
 </html>
