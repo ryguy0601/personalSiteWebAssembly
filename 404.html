@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="refresh" content="0; url=./index.html" />
+  </head>
+  <body>
+    <script>
+      // Redirect to index.html with the original path so Blazor routing works
+      var redirectTo = window.location.protocol + "//" + window.location.host + 
+                       window.location.pathname.replace(/\/+$/, "") + 
+                       window.location.search + window.location.hash;
+      sessionStorage.redirect = redirectTo;
+      window.location.href = "./index.html";
+    </script>
+  </body>
+</html>
+

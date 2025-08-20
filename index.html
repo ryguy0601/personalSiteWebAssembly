@@ -16,6 +16,18 @@
 </head>
 
 <body>
+    <script>
+        (function () {
+            if (sessionStorage.redirect) {
+                var redirect = sessionStorage.redirect;
+                delete sessionStorage.redirect;
+                if (redirect !== window.location.href) {
+                    history.replaceState(null, null, redirect);
+                }
+            }
+        })();
+    </script>
+
     <div id="app">Loading...</div>
 
     <div id="blazor-error-ui">
