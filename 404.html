@@ -1,17 +1,42 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta http-equiv="refresh" content="0; url=./index.html" />
-  </head>
-  <body>
-    <script>
-      // Redirect to index.html with the original path so Blazor routing works
-      var redirectTo = window.location.protocol + "//" + window.location.host + 
-                       window.location.pathname.replace(/\/+$/, "") + 
-                       window.location.search + window.location.hash;
-      sessionStorage.redirect = redirectTo;
-      window.location.href = "personalSiteWebAssembly/index.html";
-    </script>
-  </body>
-</html>
+<head>
+    <meta charset="utf-8">
+    <title>Redirecting...</title>
+    <script type="text/javascript">
+        (function () {
+            var path = window.location.pathname;
 
+            // Only enforce repo folder when hosted on GitHub Pages
+            if (window.location.hostname.includes("github.io")) {
+                if (!path.startsWith("/personalSiteWebAssembly/")) {
+                    path = "/personalSiteWebAssembly" + path;
+                }
+            }
+
+            var redirectTo = window.location.protocol + "//" + window.location.host +
+                path + window.location.search + window.location.hash;
+
+            // Save original target
+            sessionStorage.redirect = redirectTo;
+
+            // Always send to Blazor entrypoint
+            if (window.location.hostname.includes("github.io")) {
+                window.location.replace("/personalSiteWebAssembly/index.html");
+            } else {
+                window.location.replace("/index.html");
+            }
+        })();
+    </script>
+</head>
+<body>
+    <h1>Redirecting...</h1>
+    <p>If you are not redirected, <a id="redirectLink" href="#">click here</a>.</p>
+    <script>
+        document.getElementById("redirectLink").href =
+            window.location.hostname.includes("github.io")
+                ? "/personalSiteWebAssembly/index.html"
+                : "/index.html";
+    </script>
+</body>
+</html>
