@@ -5,22 +5,13 @@
   </head>
   <body>
       <script>
-          var path = window.location.pathname;
-
-          // Only enforce repo folder when hosted on GitHub Pages
-          if (window.location.hostname.includes("github.io")) {
-              if (!path.startsWith("/personalSiteWebAssembly/")) {
-                  path = "/personalSiteWebAssembly" + path;
-              }
-          }
-
+          // Redirect to index.html with the original path so Blazor routing works
           var redirectTo = window.location.protocol + "//" + window.location.host +
-              path + window.location.search + window.location.hash;
-
+              window.location.pathname.replace(/\/+$/, "") +
+              window.location.search + window.location.hash;
+          alert(redirectTo);
           sessionStorage.redirect = redirectTo;
-
-          // Always redirect to Blazor entrypoint
-          window.location.replace("./index.html");
+          window.location.href = "./index.html";
       </script>
   </body>
 </html>
