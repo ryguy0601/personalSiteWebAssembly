@@ -117,16 +117,7 @@ window.navFuncs = () => {
     const navToggleButton = document.getElementById("nav-toggle");
     const closeBtn = document.getElementById("sideNavClose");
 
-    // Highlight active link
-    const navLinks = document.querySelectorAll(".nav-link");
-    const currentUrl = window.location.pathname;
-    //navLinks.forEach(link => {
-    //    let linkUrl = new URL(link.getAttribute("href"), window.location.origin);
-    //    if (linkUrl.pathname === currentUrl) {
-    //        navLinks.forEach(l => l.classList.remove("active"));
-    //        link.classList.add("active");
-    //    }
-    //});
+    const BOOTSTRAP_MD = 768; // Bootstrap medium breakpoint
 
     // Toggle sidebar on button click
     navToggleButton.addEventListener("click", () => {
@@ -140,16 +131,16 @@ window.navFuncs = () => {
         });
     }
 
+    // Hover only for desktop (>= md)
     navToggleButton.addEventListener("mouseenter", () => {
-        if (window.innerWidth >= 576) {
-            console.log('test')
+        if (window.innerWidth >= BOOTSTRAP_MD) {
             sidebar.classList.add("show");
         }
     });
 
     // Sidebar + multiple submenus hover handling
     document.addEventListener("mousemove", (e) => {
-        if (window.innerWidth >= 576) {
+        if (window.innerWidth >= BOOTSTRAP_MD) {
             const sidebarRect = sidebar.getBoundingClientRect();
 
             let insideSidebar = (
@@ -159,7 +150,7 @@ window.navFuncs = () => {
                 e.clientY <= sidebarRect.bottom + 10
             );
 
-            // check ALL submenus
+            // Check ALL submenus
             const submenus = document.querySelectorAll(".submenu");
             let insideAnySubmenu = false;
 
@@ -174,11 +165,13 @@ window.navFuncs = () => {
                     insideAnySubmenu = true;
                 }
             });
-            let smRect = navToggleButton.getBoundingClientRect();
-            if (e.clientX >= smRect.left - 10 &&
-                e.clientX <= smRect.right + 10 &&
-                e.clientY >= smRect.top - 10 &&
-                e.clientY <= smRect.bottom + 10
+
+            let toggleRect = navToggleButton.getBoundingClientRect();
+            if (
+                e.clientX >= toggleRect.left - 10 &&
+                e.clientX <= toggleRect.right + 10 &&
+                e.clientY >= toggleRect.top - 10 &&
+                e.clientY <= toggleRect.bottom + 10
             ) {
                 insideAnySubmenu = true;
             }
@@ -190,4 +183,4 @@ window.navFuncs = () => {
             }
         }
     });
-}
+};
