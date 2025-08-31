@@ -438,7 +438,7 @@ function convertImage() {
 
             const convertedUrl = URL.createObjectURL(blob);
             previewImageConverted.src = convertedUrl;
-            percentDif = (100 - (blob.size / file.size) * 100).toFixed(2);
+            let percentDif = (100 - (blob.size / file.size) * 100).toFixed(2);
             convertedFileSizeLabel.textContent = `Converted | ${formatFileSize(blob.size)} | ${percentDif}%`;
 
             // Save converted blob for download all

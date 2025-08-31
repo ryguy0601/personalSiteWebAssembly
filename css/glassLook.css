@@ -4,9 +4,9 @@
 
 /* ========== Universal Glass Panel ========== */
 .glass-panel {
-    background: rgba(0, 0, 0, 0.3) !important;
-    backdrop-filter: blur(10px) saturate(180%) !important;
-    -webkit-backdrop-filter: blur(10px) saturate(180%) !important;
+    background: rgba(0, 0, 0, 0) !important;
+    backdrop-filter: blur(5px) saturate(180%) !important;
+    -webkit-backdrop-filter: blur(5px) saturate(180%) !important;
     border-radius: 1rem !important;
     color: white !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
@@ -74,8 +74,8 @@ table.glass-panel {
 .card.glass-panel,
 .container.glass-panel,
 .modal-content.glass-panel {
-    background-color: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(10px) saturate(180%);
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(5px) saturate(180%);
     border-radius: 1rem;
     box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
 }
